@@ -34,7 +34,7 @@ resource "azurerm_cosmosdb_sql_database" "main" {
   throughput          = "400"
 }
 
-resource "azurerm_cosmosdb_sql_container" " resume_container" {
+resource "azurerm_cosmosdb_sql_container" "resume_container" {
   name                  = "${random_pet.prefix.id}-Counter"
   resource_group_name   = data.azurerm_resource_group.rg.name
   account_name          = azurerm_cosmosdb_account.cdb_account.name
