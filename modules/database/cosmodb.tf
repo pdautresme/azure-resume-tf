@@ -27,7 +27,7 @@ resource "azurerm_cosmosdb_account" "cdb_account" {
   ]
 }
 
-resource "azurerm_cosmosdb_sql_database" "main" {
+resource "azurerm_cosmosdb_sql_database" "SQL_database" {
   name                = "${random_pet.prefix.id}-AzureResume"
   resource_group_name = data.azurerm_resource_group.rg.name
   account_name        = azurerm_cosmosdb_account.cdb_account.name
@@ -38,7 +38,7 @@ resource "azurerm_cosmosdb_sql_container" "resume_container" {
   name                  = "${random_pet.prefix.id}-Counter"
   resource_group_name   = data.azurerm_resource_group.rg.name
   account_name          = azurerm_cosmosdb_account.cdb_account.name
-  database_name         = azurerm_cosmosdb_sql_database.main.name
+  database_name         = azurerm_cosmosdb_sql_database.SQL_database.name
   partition_key_paths    = ["/definition/id"]
   partition_key_version = 1
   throughput            = "400"
