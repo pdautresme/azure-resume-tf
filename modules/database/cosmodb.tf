@@ -3,20 +3,22 @@ data "azurerm_resource_group" "rg" {
 }
 
 resource "azurerm_cosmosdb_account" "cdb_account" {
-  name                = random_pet.prefix.id
+  name                = "pdacosmodbaccount"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   offer_type          = "Standard"
   kind                = "GlobalDocumentDB"
-  
 
-  
+  capabilities {
+    name = "EnableServerless"
+  }
+
   geo_location {
     location          = data.azurerm_resource_group.rg.location
     failover_priority = 0
   }
 
-  
+
   consistency_policy {
     consistency_level       = "BoundedStaleness"
     max_interval_in_seconds = 300
@@ -27,21 +29,20 @@ resource "azurerm_cosmosdb_account" "cdb_account" {
   ]
 }
 
-resource "azurerm_cosmosdb_sql_database" "SQL_database" {
-  name                = "${random_pet.prefix.id}-AzureResume"
+
+resource "azurerm_cosmosdb_sql_database" "sql_database" {
+  name                = "AzureResume"
   resource_group_name = data.azurerm_resource_group.rg.name
   account_name        = azurerm_cosmosdb_account.cdb_account.name
-  throughput          = "400"
 }
 
-resource "azurerm_cosmosdb_sql_container" "resume_container" {
-  name                  = "${random_pet.prefix.id}-Counter"
+resource "azurerm_cosmosdb_sql_container" "sql_container" {
+  name                  = "Counter"
   resource_group_name   = data.azurerm_resource_group.rg.name
   account_name          = azurerm_cosmosdb_account.cdb_account.name
-  database_name         = azurerm_cosmosdb_sql_database.SQL_database.name
-  partition_key_paths    = ["/definition/id"]
+  database_name         = azurerm_cosmosdb_sql_database.sql_database.name
+  partition_key_paths   = ["/definition/id"]
   partition_key_version = 1
-  throughput            = "400"
 
   indexing_policy {
     indexing_mode = "consistent"
@@ -64,7 +65,19 @@ resource "azurerm_cosmosdb_sql_container" "resume_container" {
   }
 }
 
-resource "random_pet" "prefix" {
-  prefix = var.prefix
-  length = 1
+resource "azurerm_cosmosdb_sql_item" "counter_item" {
+  resource_group_name = data.azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cdb_account.name
+  database_name       = azurerm_cosmosdb_sql_database.sql_database.name
+  container_name      = azurerm_cosmosdb_sql_container.sql_container.name
+
+  item = jsonencode({
+    id = "visitor-counter"
+    count = 0
+    definition = {
+      id = "visitor-counter"
+      idlong = "visitor-counter-long"
+      idshort = "vc"
+    }
+  })
 }

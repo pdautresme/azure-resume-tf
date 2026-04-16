@@ -7,8 +7,3 @@ variable "storage_account_name" {
   description = "The name of the storage account to create."
   type        = string
 }
-
-variable "prefix" {
-  description = "The prefix for the resource names."
-  type        = string
-}

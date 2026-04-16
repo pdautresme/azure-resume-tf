@@ -11,7 +11,6 @@ module "storage" {
 
 module "database" {
   source              = "./modules/database"
-  prefix              = var.prefix
   resource_group_name = data.azurerm_resource_group.rg.name
 
 }
