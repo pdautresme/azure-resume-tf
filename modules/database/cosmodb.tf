@@ -64,20 +64,3 @@ resource "azurerm_cosmosdb_sql_container" "sql_container" {
     paths = ["/definition/idlong", "/definition/idshort"]
   }
 }
-
-resource "azurerm_cosmosdb_sql_item" "counter_item" {
-  resource_group_name = data.azurerm_resource_group.rg.name
-  account_name        = azurerm_cosmosdb_account.cdb_account.name
-  database_name       = azurerm_cosmosdb_sql_database.sql_database.name
-  container_name      = azurerm_cosmosdb_sql_container.sql_container.name
-
-  item = jsonencode({
-    id = "visitor-counter"
-    count = 0
-    definition = {
-      id = "visitor-counter"
-      idlong = "visitor-counter-long"
-      idshort = "vc"
-    }
-  })
-}
