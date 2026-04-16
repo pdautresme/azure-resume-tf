@@ -6,5 +6,5 @@ variable "resource_group_name" {
 variable "prefix" {
   description = "The prefix for the resource names."
   type        = string
-  default = "az"
+  default = "pda"
 }

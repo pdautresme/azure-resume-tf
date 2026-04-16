@@ -8,6 +8,7 @@ resource "azurerm_cosmosdb_account" "cdb_account" {
   resource_group_name = data.azurerm_resource_group.rg.name
   offer_type          = "Standard"
   kind                = "GlobalDocumentDB"
+  
 
   
   geo_location {
@@ -27,14 +28,14 @@ resource "azurerm_cosmosdb_account" "cdb_account" {
 }
 
 resource "azurerm_cosmosdb_sql_database" "main" {
-  name                = "${random_pet.prefix.id}-cosmosdb-sqldb"
+  name                = "${random_pet.prefix.id}-AzureResume"
   resource_group_name = data.azurerm_resource_group.rg.name
   account_name        = azurerm_cosmosdb_account.cdb_account.name
   throughput          = "400"
 }
 
-resource "azurerm_cosmosdb_sql_container" "resume" {
-  name                  = "${random_pet.prefix.id}-sql-container"
+resource "azurerm_cosmosdb_sql_container" " resume_container" {
+  name                  = "${random_pet.prefix.id}-Counter"
   resource_group_name   = data.azurerm_resource_group.rg.name
   account_name          = azurerm_cosmosdb_account.cdb_account.name
   database_name         = azurerm_cosmosdb_sql_database.main.name
