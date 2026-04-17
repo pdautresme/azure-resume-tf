@@ -11,8 +11,8 @@ terraform {
       version = "3.5.1"
     }
   }
-
 }
+
 
 provider "azurerm" {
   # Configuration options
@@ -21,3 +21,4 @@ provider "azurerm" {
   }
   subscription_id = "6bfa74e2-404b-4f15-84e0-1c0a5edd7450"
 }
+

@@ -9,6 +9,9 @@ resource "azurerm_cosmosdb_account" "cdb_account" {
   offer_type          = "Standard"
   kind                = "GlobalDocumentDB"
 
+  free_tier_enabled          = "true"
+  automatic_failover_enabled = "false"
+
   capabilities {
     name = "EnableServerless"
   }
