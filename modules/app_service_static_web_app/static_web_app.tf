@@ -5,7 +5,7 @@ data "azurerm_resource_group" "rg" {
 resource "azurerm_static_web_app" "static_web_app" {
   name                = var.static_web_app_name
   resource_group_name = data.azurerm_resource_group.rg.name
-  location            = data.azurerm_resource_group.rg.location
+  location            = "westeurope"
 
   sku_tier          = var.sku_tier
   sku_size          = "Free"
