@@ -6,7 +6,6 @@ variable "resource_group_name" {
 variable "static_web_app_name" {
   description = "The name of the static web app."
   type        = string
-  default     = "static-resume-web-site"
 }
 
 variable "sku_tier" {
@@ -18,7 +17,6 @@ variable "sku_tier" {
 variable "repository_url" {
   description = "The URL of the repository containing the static web app code."
   type        = string
-  default     = "https://github.com/example/static-resume-web-site.git"
 }
 
 variable "repository_branch" {
@@ -36,12 +34,9 @@ variable "repository_token" {
 variable "custom_domain_name" {
   description = "The custom domain name to be associated with the static web app."
   type        = string
-  default     = "www"
-
 }
+
 variable "dns_zone_name" {
   description = "The name of the DNS zone where the CNAME record will be created."
   type        = string
-  default     = "dautresmep.online"
-
 }

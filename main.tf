@@ -15,4 +15,6 @@ module "app_service_static_web_app" {
   repository_branch   = var.repository_branch
   repository_token    = var.repository_token
   static_web_app_name = var.static_web_app_name
+  dns_zone_name       = var.dns_zone_name
+  custom_domain_name  = var.custom_domain_name
 }
